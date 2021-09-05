@@ -1,0 +1,11 @@
+"","activation_functions","batch_norm"
+"1","ReLU",TRUE
+"2","Mish",FALSE
+"3","LReLU",TRUE
+"4","ELU",FALSE
+"5","Mish",TRUE
+"6","GELU",FALSE
+"7","ELU",TRUE
+"8","LReLU",FALSE
+"9","GELU",TRUE
+"10","ReLU",FALSE

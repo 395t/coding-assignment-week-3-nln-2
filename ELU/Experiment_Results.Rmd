@@ -1,0 +1,56 @@
+---
+title: "Experiment Results"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+
+```{r, include=F}
+df <- read.csv("results.csv")
+```
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+batch_names <- list(
+  'True'="Batch Normalization",
+  'False'="No Batch Normalization"
+)
+
+batch_labeller <- function(variable,value){
+  return(batch_names[value])
+}
+
+ggplot(df, aes(Activation.Function, Accuracy)) +
+  geom_boxplot() +
+  facet_grid(.~Batch.Norm, labeller=batch_labeller) +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=0.1) +
+  geom_jitter(shape=16, position=position_jitter(0.1)) +
+  theme_bw() +
+  ggtitle("Accuracy vs Activation Functions and Batch Normalization") +
+  xlab("Activation Functions") +
+  ylab("Accuracy on the Validation Set")
+```
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+ggplot(df, aes(Activation.Function, Time)) +
+  geom_boxplot() +
+  facet_grid(.~Batch.Norm, labeller=batch_labeller) +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=0.1) +
+  geom_jitter(shape=16, position=position_jitter(0.1)) +
+  theme_bw() +
+  ggtitle("Time vs Activation Functions and Batch Normalization") +
+  xlab("Activation Functions") +
+  ylab("Time (s)")
+```
+
+```{r}
+summary(aov(Time~Activation.Function*Batch.Norm, data=df))
+```
+```{r, message=FALSE, warning=FALSE}
+df2 <- df %>% unite("Activation.Function_Batch.Norm", Activation.Function:Batch.Norm, , remove = FALSE)
+pairwise.wilcox.test(df$Accuracy, df2$Activation.Function_Batch.Norm,p.adjust.method = "bonferroni")
+```
