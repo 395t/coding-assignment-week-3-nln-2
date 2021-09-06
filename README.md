@@ -247,7 +247,7 @@ In conclusion, none of the activation functions seem to be significantly better 
 
 ### Dataset
 
-Tweet part-of-speech tagging is a natural language processing dataset focusing on tagging words. The dataset is relatively small (1000 training, 327 validation, and 500 testing tweets), which make it suitable for us to study the generalization ability of the trained model.
+Tweet part-of-speech tagging is a natural language processing dataset focusing on tagging words. The dataset is relatively small (1000 training, 327 validation, and 500 testing tweets), which makes it suitable for us to study the generalization ability of the trained model.
 
 ### Code
 
