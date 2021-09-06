@@ -4,9 +4,16 @@
 
 We explored the Mish, GELU, and ELU papers and explored the CIFAR10, STL10, and Twitter POS tagging datasets. 
 
+The repo is orgainzed as follows:
+- Notebook for Twitter-POS dataset: `./notebooks/Twitter_pos.ipynb`
+- Source code for Twitter-POS dataset: `./src/Twitter_pos.py` (run by the command `[TODO]`)
+ - Dataset for Twitter-POS: `./src/twitter_pos/data/Tweets`
+
 ## Reference
 
-The CIFAR10 dataset references the following blog: https://medium.com/@sergioalves94/deep-learning-in-pytorch-with-cifar-10-dataset-858b504a6b54
+The CIFAR10 dataset references the following [blog](https://medium.com/@sergioalves94/deep-learning-in-pytorch-with-cifar-10-dataset-858b504a6b54).
+
+The helper functions for Twitter-POS dataset are heavily based on [this repo](https://github.com/hendrycks/GELUs/blob/master/twitter_pos.py).
 
 ## CIFAR10
 
@@ -247,123 +254,187 @@ In conclusion, none of the activation functions seem to be significantly better 
 
 Tweet part-of-speech tagging is a natural language processing dataset focusing on tagging words. The dataset is relatively small (1000 training, 327 validation, and 500 testing tweets), which make it suitable for us to study the generalization ability of the trained model.
 
+
+
 ### Model
 
-According to the paper, we use a simple two-layer network in order to test the generalization ability and convergence speed under different activation functions. The network was trained using 50 epochs, Adam optimizer, CrossEntropyLoss, and learning rates of 1e-3, 1e-4, and 1e-5. 
+According to the paper, we use a simple two-layer network in order to test the generalization ability and convergence speed under different activation functions. 
 
-### Discussion
+The network was trained using 50 epochs, Adam optimizer, CrossEntropyLoss, and learning rates of 1e-3, 1e-4, and 1e-5. 
 
-To help us observe the convergence, we show the loss value and classification error based on the median of three runs.
+Also, we applied dropout for regulization and `Xavire` for network initialization.
 
-They follow the settings of:
 
-Learning rate = [1e-2, 1e-3, 1e-4, 1e-5]
 
-![Twitter Training Loss 1](/resources/Twitter_Training_Loss1.png)
-![Twitter Training Error 1](/resources/Twitter_Training_Error1.png)
+### Discussion: performance and convergence speed
 
-[Classification error (best)]
+To better understand the relationship between the network convergence and activation functions, we demonstrate the loss value and classification error curve for each epoch.
 
-relu 	 16.765%
-
-prelu 	 15.436%
-
-elu 	 17.827%
-
-silu 	 17.030%
-
-mish 	 17.394%
-
-gelu 	 16.555%
+All results are computed based on the median of three runs.
 
 ![Twitter Training Loss 2](/resources/Twitter_Training_Loss2.png)
 ![Twitter Training Error 2](/resources/Twitter_Training_Error2.png)
 
-[Classification error (best)]
+| Activation functions | Classification Error |
+| -------------------- | -------------------- |
+| relu                 | 12.248%              |
+| prelu                | 12.304%              |
+| elu                  | 12.570%              |
+| silu                 | 12.416%              |
+| mish                 | 12.472%              |
+| gelu                 | 12.248%              |
 
-relu 	 12.248%
+In the first figures, Relu has the fastest converge speed, while Elu is slightly slower than others according to the loss value.
 
-prelu 	 12.304%
+However, as shown in the second figure, the difference in the dropping speed of the loss curve does not reflect the performance. The final classification error shows no difference under different activation function selections.
 
-elu 	 12.570%
-
-silu 	 12.416%
-
-mish 	 12.472%
-
-gelu 	 12.248%
+We suggest that the activation function does not affect the final performance so much if the trained model is fully converged.
 
 
-In the setting lr=1e-3, Elu shows the slowest convergence speed among all the others according to the first figure.
 
-Due to the high learning rate, all methods converage relatively fast and are satured after 10th epochs on classification error. The final classification error indicates that relu and gelu have the best overall accuracy.
+### Discussion: robustness to the learning rate
 
-We concluded that for a fast learning rate like 1e-3, the model can only retain sub-optimal results and Elu is the most sensitive one to high learning rate.
+The former section has shown that the performance does not heavily rely on the activation function under a reasonable learning rate. Yet, the acting of the model under a different set of learning rates still remains unclear.
+
+Accordingly, we test the convergence speed and final performance of each activation function under the following settings:
+
+\- Learning rate = [1e-2, 1e-3, 1e-4, 1e-5]
+
+All results are computed based on the median of three runs.
+
+
+
+![Twitter Training Loss 1](/resources/Twitter_Training_Loss1.png)
+![Twitter Training Error 1](/resources/Twitter_Training_Error1.png)
+
+| Activation functions | Classification Error |
+| -------------------- | -------------------- |
+| relu                 | 16.765%              |
+| prelu                | 15.436%              |
+| elu                  | 17.827%              |
+| silu                 | 17.030%              |
+| mish                 | 17.394%              |
+| gelu                 | 16.555%              |
+
+In the figure, there are several oscillations during the convergence process, which implies the unstable nature of the network training under a fast learning rate.
+
+We observed that Elu function has the highest loss value and classification error. Accordingly, we suggest Elu function is the most sensitive to an unstable condition.
+
+Prelu performs slightly than others, yet it still can only result in sub-optimal performance compared to other settings.
+
+
+
+![Twitter Training Loss 2](/resources/Twitter_Training_Loss2.png)
+![Twitter Training Error 2](/resources/Twitter_Training_Error2.png)
+
+| Activation functions | Classification Error |
+| -------------------- | -------------------- |
+| relu                 | 12.248%              |
+| prelu                | 12.304%              |
+| elu                  | 12.570%              |
+| silu                 | 12.416%              |
+| mish                 | 12.472%              |
+| gelu                 | 12.248%              |
+
+
+
+The result trained under lr=1e-3 had been shown in the previous section.
+
+The performance is similar across all activation function settings.
+
+Thus, we selected them as our best model for Twitter-POS dataset.
+
+
 
 ![Twitter Training Loss 3](/resources/Twitter_Training_Loss3.png)
 ![Twitter Training Error 3](/resources/Twitter_Training_Error3.png)
 
-[Classification error (best)]
+| Activation functions | Classification Error |
+| -------------------- | -------------------- |
+| relu                 | 12.150%              |
+| prelu                | 12.276%              |
+| elu                  | 13.940%              |
+| silu                 | 13.255%              |
+| mish                 | 12.933%              |
+| gelu                 | 12.458%              |
 
-relu 	 12.150%
 
-prelu 	 12.276%
 
-elu 	 13.940%
+The curve for `lr=1e-4` is pretty similar to `lr=1e-3`, except the convergence is smoother. On the other hand, the performance is slightly lower but does not show any significant differences.
 
-silu 	 13.255%
 
-mish 	 12.933%
-
-gelu 	 12.458%
 
 
 ![Twitter Training Loss 4](/resources/Twitter_Training_Loss4.png)
 ![Twitter Training Error 4](/resources/Twitter_Training_Error4.png)
 
-[Classification error (best)]
+| Activation functions | Classification Error |
+| -------------------- | -------------------- |
+| relu                 | 16.261%              |
+| prelu                | 15.674%              |
+| elu                  | 15.646%              |
+| silu                 | 17.156%              |
+| mish                 | 16.443%              |
+| gelu                 | 16.695%              |
 
-relu 	 16.261%
 
-prelu 	 15.674%
 
-elu 	 15.646%
+In the setting of `lr=1e-5`, the loss value and classification error increased compared to the previous settings. We argue that the model does not fully converge due to a slower learning rate.
 
-silu 	 17.156%
+One interesting finding is that Elu performs the best under such a slow learning rate. We point out that Elu produces a close-to-natural gradient in values closer to zero, which makes it more noise-free than other relu-like functions, especially for small values.
 
-mish 	 16.443%
 
-gelu 	 16.695%
 
 ![Twitter Accuracy](/resources/Twitter_Accuracy.png)
 
-In this section, we compare the training and inference time for XX / XX samples, repectively.
-
-Avg. training time per samples for relu ms is 126.2016 μs
-
-Avg. training time per samples for prelu ms is 128.7802 μs
-
-Avg. training time per samples for elu ms is 92.9664 μs
-
-Avg. training time per samples for silu ms is 117.4599 μs
-
-Avg. training time per samples for mish ms is 133.7703 μs
-
-Avg. training time per samples for gelu ms is 214.3286 μs
 
 
-Avg. inference time per samples for relu ms is 4.5404 μs
+Finally, we demonstrate the accuracy of all 6 activation functions under different learning rate settings. In general, `lr1e-3` and `lr1e-4` give us better results compared to the other two settings.
 
-Avg. inference time per samples for prelu ms is 7.0469 μs
+In addition, PRelu shows the best robustness against LR changes as it has the highest performance across different settings.
 
-Avg. inference time per samples for elu ms is 5.1761 μs
+We attribute it to the adaptive ability of PRelu. While both PRelu and Elu both can propagate negative gradient, only PRelu has the flexibility to adapt the parameters of the rectifiers.
 
-Avg. inference time per samples for silu ms is 4.8332 μs
 
-Avg. inference time per samples for mish ms is 10.7620 μs
 
-Avg. inference time per samples for gelu ms is 5.5138 μs
+
+
+### Discussion: running time
+
+In this section, we compare the training and inference time for the 6 activation functions. Specifically, we run training and inference respectively for 100 epochs and then compute the average spending time for each input sample.
+
+All experiments are conducted on Google Colab.
+
+The hardware specifications are listed as follows:
+
+\- CPU: Intel(R) Xeon(R) CPU @ 2.20GHz
+
+\- Memory size: 13GB
+
+We did not enable any GPU/TPU acceleration.
+
+
+
+|       | Avg. training time per samples (μs) | Avg. inference time per samples (μs) |
+| ----- | ----------------------------------- | ------------------------------------ |
+| relu  | 126.2016                            | 4.5404                               |
+| prelu | 128.7802                            | 7.0469                               |
+| elu   | 92.9664                             | 5.1761                               |
+| silu  | 117.4599                            | 4.8332                               |
+| mish  | 133.7703                            | 10.7620                              |
+| gelu  | 214.3286                            | 5.5138                               |
+
 
 
 ![Twitter Training Time](/resources/Twitter_Training_Time.png)
 ![Twitter Inference Time](/resources/Twitter_Inference_Time.png)
+
+
+
+As shown in the figure, Gelu significantly spends more time on computing during training. Computing Gelu involves the estimation cumulative distribution function (CDF) of a Gaussian function. There are several ways to improve the approximation of CDF, yet most of them would bring up extra computation costs.
+
+As for inference time, Mish spends the longest time on computing. We attribute it to the complex nature of the Mish function. Specifically, Mish is a combination of multiple functions, i.e., Tanh and Softplus, which significantly increase its complexity.
+
+For the rest function choices, we did not observe notable differences in efficiency between each of them. 
+
+Note that we only have limit access to Colab server and therefore are not able to maintain the necessary consistency for each run. Thus, there might be some unfair environmental changes caused by the hardware-/software-side of Colab.
