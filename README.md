@@ -50,24 +50,24 @@ We first varied the batch size and trained 25 epochs with a learning rate of 1e-
 Mish: <br />
 Val Accuracy - 0.5604 <br />
 Val Loss - 1.506 <br />
-Training Time 8 minutes 13 seconds <br />
-Inference Time 1.9 seconds <br />
+Training Time - 8 minutes 13 seconds <br />
+Inference Time - 1.9 seconds <br />
 
 ![Batch 40 Mish](/resources/batch_40_mish.png)
 
 ELU: <br />
 Val Acccuracy - 0.5659 <br />
 Val Loss - 1.858 <br />
-Training Time 7 minutes 17 seconds <br />
-Inference Time 2.1 seconds <br />
+Training Time - 7 minutes 17 seconds <br />
+Inference Time - 2.1 seconds <br />
 
 ![Batch 40 Mish](/resources/batch_40_mish.png)
 
 GELU: <br />
 Val Accuracy - 0.5715 <br />
 Val Loss - 1.522 <br />
-Training Time 7 minutes 48 seconds <br />
-Inference Time 2.0 seconds <br />
+Training Time - 7 minutes 48 seconds <br />
+Inference Time - 2.0 seconds <br />
 
 ![Batch 40 Mish](/resources/batch_40_mish.png)
 
@@ -76,24 +76,24 @@ Inference Time 2.0 seconds <br />
 Mish: <br />
 Val Accuracy - 0.5709 <br />
 Val Loss - 1.5047 <br />
-Training Time 12 minutes 15 seconds <br />
-Inference Time 2.2 seconds<br />
+Training Time - 12 minutes 15 seconds <br />
+Inference Time - 2.2 seconds<br />
 
 ![Batch 24 Mish](/resources/batch_24_mish.png)
 
 ELU <br />
 Val Accuracy - 0.5965 <br />
 Val Loss - 1.2927 <br />
-Training Time 9 minutes 24 seconds <br />
-Inference Time 2.4 seconds<br />
+Training Time - 9 minutes 24 seconds <br />
+Inference Time - 2.4 seconds<br />
 
 ![Batch 24 Mish](/resources/batch_24_mish.png)
 
 GELU <br />
 Val Accuracy - 0.5824 <br />
 Val Loss - 1.2347 <br />
-Training Time 10 minutes 42 seconds <br />
-Inference Time 1.8 seconds
+Training Time - 10 minutes 42 seconds <br />
+Inference Time - 1.8 seconds
 
 ![Batch 24 Mish](/resources/batch_24_mish.png)
 
@@ -101,24 +101,24 @@ Inference Time 1.8 seconds
 Mish: <br />
 Val Accuracy - 0.5304 <br />
 Val Loss - 1.9593 <br />
-Training Time 10 minutes 5 seconds  <br />
-Inference Time 2.4 seconds<br />
+Training Time - 10 minutes 5 seconds  <br />
+Inference Time - 2.4 seconds<br />
 
 ![Batch 64 Mish](/resources/batch_64_mish.png)
 
 ELU: <br />
 Val Accuracy - 0.6011 <br />
 Val Loss - 1.6392 <br />
-Training Time 7 minutes 33 seconds <br />
-Inference Time 2.6 seconds <br />
+Training Time - 7 minutes 33 seconds <br />
+Inference Time - 2.6 seconds <br />
 
 ![Batch 64 Elu](/resources/batch_64_elu.png)
 
 GELU: <br />
 Val Accuracy - 0.4926 <br />
 Val Loss - 1.9418 <br />
-Trainng Time 8 minutes 5 seconds <br />
-Inference Time 1.5 seconds <br />
+Trainng Time - 8 minutes 5 seconds <br />
+Inference Time - 1.5 seconds <br />
 
 ![Batch 64 Gelu](/resources/batch_64_gelu.png)
 
@@ -126,22 +126,22 @@ Inference Time 1.5 seconds <br />
 Mish: <br />
 Val Accuracy - 0.5901 <br />
 Val Loss - 1.3024 <br />
-Training Time 9 minutes 28 seconds <br />
-Inference Time 1.6 seconds <br />
+Training Time - 9 minutes 28 seconds <br />
+Inference Time - 1.6 seconds <br />
 
 
 ELU: <br />
 Val Accuracy - 0.5956 <br />
 Val Loss - 1.4306 <br />
-Training Time 6 minutes 55 seconds <br />
-Inference Time 1.7 seconds <br />
+Training Time - 6 minutes 55 seconds <br />
+Inference Time - 1.7 seconds <br />
 
 
 GELU: <br />
 Val Accuracy - 0.5777 <br />
 Val Loss - 1.3086 <br />
-Training Time 7 minutes 34 seconds <br />
-Inference Time 1.9 seconds <br />
+Training Time - 7 minutes 34 seconds <br />
+Inference Time - 1.9 seconds <br />
 
 ![1e1 Figures](/resources/1e1_figures.png)
 
@@ -212,7 +212,7 @@ Val Loss - 2.3030 <br />
 
 ### Analysis
 
-It appears that the accuracy and loss begin to converge around the 5th epoch across all batch sizes and activation functions. For learning rates smaller than 1e-1, the point of convergence goes back to later epochs, where it appears to be closer to the 10th epoch. For all batch sizes, no one activation function consistently performed better than the rest; however, they all performed exceptionally well with a batch size of 128, where accuracy was close to 60%. With learning rates of 1e-3 and 1e-4, GELU and Mish struggled to learn, leading me to give a recommendation to use ELU in such cases. Across several other cases as well, ELU outperformed the other two activation functions by 1-2%, leading me to stay with this recommendation. In general, across all experiments, the accuracy fell in the range of 50%-60%, where a random guess with 10 classes that are equally represented would be successful 10% of the time. 
+It appears that the accuracy and loss begin to converge around the 5th epoch across all batch sizes and activation functions. For learning rates smaller than 1e-1, the point of convergence goes back to later epochs, where it appears to be closer to the 10th epoch. For all batch sizes, no one activation function consistently performed better than the rest; however, they all performed exceptionally well with a batch size of 128, where accuracy was close to 60%. With learning rates of 1e-3 and 1e-4, GELU and Mish struggled to learn, leading me to give a recommendation to use ELU in such cases. Across several other cases as well, ELU outperformed the other two activation functions by 1-2%, leading me to stay with this recommendation. In general, across all experiments, the accuracy fell in the range of 50%-60%, where a random guess with 10 classes that are equally represented would be successful 10% of the time. Inference time was about the same across all experiments, and training time varied between 5 to 10 minutes. However, differences in training time may also be due to issues with the computer the models were tranined on. 
 
 ## STL10
 
