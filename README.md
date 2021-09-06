@@ -207,36 +207,9 @@ The hardware specifications are listed as follows:
 
 \- Memory size: 13GB
 
-
-
 We did not enable any GPU/TPU acceleration.
 
-In this section, we compare the training and inference time for XX / XX samples, repectively.
 
-Avg. training time per samples for relu ms is 126.2016 μs
-
-Avg. training time per samples for prelu ms is 128.7802 μs
-
-Avg. training time per samples for elu ms is 92.9664 μs
-
-Avg. training time per samples for silu ms is 117.4599 μs
-
-Avg. training time per samples for mish ms is 133.7703 μs
-
-Avg. training time per samples for gelu ms is 214.3286 μs
-
-
-Avg. inference time per samples for relu ms is 4.5404 μs
-
-Avg. inference time per samples for prelu ms is 7.0469 μs
-
-Avg. inference time per samples for elu ms is 5.1761 μs
-
-Avg. inference time per samples for silu ms is 4.8332 μs
-
-Avg. inference time per samples for mish ms is 10.7620 μs
-
-Avg. inference time per samples for gelu ms is 5.5138 μs
 
 |       | Avg. training time per samples (μs) | Avg. inference time per samples (μs) |
 | ----- | ----------------------------------- | ------------------------------------ |
