@@ -52,49 +52,62 @@ Tweet part-of-speech tagging is a natural language processing dataset focusing o
 
 ### Model
 
-According to the paper, we use a simple two-layer network in order to test the generalization ability and convergence speed under different activation functions. The network was trained using 50 epochs, Adam optimizer, CrossEntropyLoss, and learning rates of 1e-3, 1e-4, and 1e-5. 
+According to the paper, we use a simple two-layer network in order to test the generalization ability and convergence speed under different activation functions. 
 
-### Discussion
+The network was trained using 50 epochs, Adam optimizer, CrossEntropyLoss, and learning rates of 1e-3, 1e-4, and 1e-5. 
 
-To help us observe the convergence, we show the loss value and classification error based on the median of three runs.
+Also, we applied dropout for regulization and `Xavire` for network initialization.
 
-They follow the settings of:
+### Discussion: performance and convergence speed
 
-Learning rate = [1e-2, 1e-3, 1e-4, 1e-5]
+To better understand the relationship between the network convergence and activation functions, we demonstrate the loss value and classification error curve for each epoch.
+
+
+
+All results are computed based on the median of three runs.
+
+
+
+### Discussion: robustness to the learning rate
+
+The former section has shown that the performance does not heavily rely on the activation function under a reasonable learning rate. Yet, the acting of the model under a different set of learning rates still remains unclear.
+
+Accordingly, we test the convergence speed and final performance of each activation function under the following settings:
+
+\- Learning rate = [1e-2, 1e-3, 1e-4, 1e-5]
+
+All results are computed based on the median of three runs.
+
+
 
 ![Twitter Training Loss 1](/resources/Twitter_Training_Loss1.png)
 ![Twitter Training Error 1](/resources/Twitter_Training_Error1.png)
 
-[Classification error (best)]
 
-relu 	 16.765%
 
-prelu 	 15.436%
+| Activation functions | Classification Error |
+| -------------------- | -------------------- |
+| relu                 | 16.765%              |
+| prelu                | 15.436%              |
+| elu                  | 17.827%              |
+| silu                 | 17.030%              |
+| mish                 | 17.394%              |
+| gelu                 | 16.555%              |
 
-elu 	 17.827%
 
-silu 	 17.030%
-
-mish 	 17.394%
-
-gelu 	 16.555%
 
 ![Twitter Training Loss 2](/resources/Twitter_Training_Loss2.png)
 ![Twitter Training Error 2](/resources/Twitter_Training_Error2.png)
 
-[Classification error (best)]
+| Activation functions | Classification Error |
+| -------------------- | -------------------- |
+| relu                 | 12.248%              |
+| prelu                | 12.304%              |
+| elu                  | 12.570%              |
+| silu                 | 12.416%              |
+| mish                 | 12.472%              |
+| gelu                 | 12.248%              |
 
-relu 	 12.248%
-
-prelu 	 12.304%
-
-elu 	 12.570%
-
-silu 	 12.416%
-
-mish 	 12.472%
-
-gelu 	 12.248%
 
 
 In the setting lr=1e-3, Elu shows the slowest convergence speed among all the others according to the first figure.
@@ -106,37 +119,31 @@ We concluded that for a fast learning rate like 1e-3, the model can only retain 
 ![Twitter Training Loss 3](/resources/Twitter_Training_Loss3.png)
 ![Twitter Training Error 3](/resources/Twitter_Training_Error3.png)
 
-[Classification error (best)]
+| Activation functions | Classification Error |
+| -------------------- | -------------------- |
+| relu                 | 12.150%              |
+| prelu                | 12.276%              |
+| elu                  | 13.940%              |
+| silu                 | 13.255%              |
+| mish                 | 12.933%              |
+| gelu                 | 12.458%              |
 
-relu 	 12.150%
 
-prelu 	 12.276%
-
-elu 	 13.940%
-
-silu 	 13.255%
-
-mish 	 12.933%
-
-gelu 	 12.458%
 
 
 ![Twitter Training Loss 4](/resources/Twitter_Training_Loss4.png)
 ![Twitter Training Error 4](/resources/Twitter_Training_Error4.png)
 
-[Classification error (best)]
+| Activation functions | Classification Error |
+| -------------------- | -------------------- |
+| relu                 | 16.261%              |
+| prelu                | 15.674%              |
+| elu                  | 15.646%              |
+| silu                 | 17.156%              |
+| mish                 | 16.443%              |
+| gelu                 | 16.695%              |
 
-relu 	 16.261%
 
-prelu 	 15.674%
-
-elu 	 15.646%
-
-silu 	 17.156%
-
-mish 	 16.443%
-
-gelu 	 16.695%
 
 ![Twitter Accuracy](/resources/Twitter_Accuracy.png)
 
@@ -166,7 +173,6 @@ Avg. inference time per samples for silu ms is 4.8332 μs
 Avg. inference time per samples for mish ms is 10.7620 μs
 
 Avg. inference time per samples for gelu ms is 5.5138 μs
-
 
 ![Twitter Training Time](/resources/Twitter_Training_Time.png)
 ![Twitter Inference Time](/resources/Twitter_Inference_Time.png)
