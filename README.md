@@ -4,6 +4,10 @@
 
 We explored the Mish, GELU, and ELU papers and explored the CIFAR10, STL10, and Twitter POS tagging datasets. 
 
+The repo is orgainzed as follows:
+- Notebook for Twitter-POS dataset: `./notebooks/Twitter_pos.ipynb`
+- Source code for Twitter-POS dataset: `./src/Twitter_pos.py` (run by the command `[TODO]`)
+
 ## Reference
 
 The CIFAR10 dataset references the following [blog](https://medium.com/@sergioalves94/deep-learning-in-pytorch-with-cifar-10-dataset-858b504a6b54).
