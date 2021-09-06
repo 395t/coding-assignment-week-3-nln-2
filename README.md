@@ -4,11 +4,6 @@
 
 We explored the Mish, GELU, and ELU papers and explored the CIFAR10, STL10, and Twitter POS tagging datasets. 
 
-The repo is orgainzed as follows:
-- Notebook for Twitter-POS dataset: `./notebooks/Twitter_pos.ipynb`
-- Source code for Twitter-POS dataset: `./src/Twitter_pos.py` (run by the command `[TODO]`)
- - Dataset for Twitter-POS: `./src/twitter_pos/data/Tweets`
-
 ## Reference
 
 The CIFAR10 dataset references the following [blog](https://medium.com/@sergioalves94/deep-learning-in-pytorch-with-cifar-10-dataset-858b504a6b54).
@@ -254,7 +249,12 @@ In conclusion, none of the activation functions seem to be significantly better 
 
 Tweet part-of-speech tagging is a natural language processing dataset focusing on tagging words. The dataset is relatively small (1000 training, 327 validation, and 500 testing tweets), which make it suitable for us to study the generalization ability of the trained model.
 
+### Code
 
+The code is orgainzed as follows:
+- Notebook for Twitter-POS dataset: `./notebooks/twitter_pos.ipynb`
+- Source code for Twitter-POS dataset: `./src/twitter_pos.py` (run by the command `python twitter_pos.py`)
+- Dataset for Twitter-POS: `./src/twitter_pos/data/Tweets`
 
 ### Model
 
@@ -437,4 +437,4 @@ As for inference time, Mish spends the longest time on computing. We attribute i
 
 For the rest function choices, we did not observe notable differences in efficiency between each of them. 
 
-Note that we only have limit access to Colab server and therefore are not able to maintain the necessary consistency for each run. Thus, there might be some unfair environmental changes caused by the hardware-/software-side of Colab.
+Note that we only have limit access to Colab server and therefore might not be able to maintain the necessary consistency for each run. Thus, there might be some unfair environmental changes caused by the hardware-/software-side of Colab.
