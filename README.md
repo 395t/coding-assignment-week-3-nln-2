@@ -6,7 +6,9 @@ We explored the Mish, GELU, and ELU papers and explored the CIFAR10, STL10, and 
 
 ## Reference
 
-The CIFAR10 dataset references the following blog: https://medium.com/@sergioalves94/deep-learning-in-pytorch-with-cifar-10-dataset-858b504a6b54
+The CIFAR10 dataset references the following [blog](https://medium.com/@sergioalves94/deep-learning-in-pytorch-with-cifar-10-dataset-858b504a6b54)
+
+The helper functions for Twitter-POS dataset are heavily based on [this repo](https://github.com/hendrycks/GELUs/blob/master/twitter_pos.py)
 
 ## CIFAR10
 
