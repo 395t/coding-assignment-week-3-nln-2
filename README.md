@@ -320,7 +320,7 @@ In the figure, there are several oscillations during the convergence process, wh
 
 We observed that Elu function has the highest loss value and classification error. Accordingly, we suggest Elu function is the most sensitive to an unstable condition.
 
-Prelu performs slightly than others, yet it still can only result in sub-optimal performance compared to other settings.
+Prelu performs slightly better than others, yet it still can only result in sub-optimal performance compared to other settings.
 
 
 
