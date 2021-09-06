@@ -262,7 +262,7 @@ According to the paper, we use a simple two-layer network in order to test the g
 
 The network was trained using 50 epochs, Adam optimizer, CrossEntropyLoss, and learning rates of 1e-3, 1e-4, and 1e-5. 
 
-Also, we applied dropout for regulization and `Xavire` for network initialization.
+Also, we applied dropout for regularization and `Xavire` for network initialization.
 
 
 
