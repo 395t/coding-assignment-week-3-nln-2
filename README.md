@@ -30,9 +30,15 @@ All experiments were run using GCP. The virtual machine chosen was a n1-standard
 
 ### Results
 
+![STL10 Results](/resources/STL10_Results.png)
+
 When accuracy is considered without batch normalizations, the Mish activation function slightly outperformed the other functions achieving an average of 0.55 (0.025) classifications correct on the validation set for the final epoch. The GELU function, however, performed much worse than the average, achieving an average final accuracy of 0.24 ( 0.38). This result is due to 6 different tests where models with the GELU activation function did not train. Looking at the log files in the ipynb folder shown below, we can see that for some tests the loss did not seem to decrease during the entirety of the test run. The model refused to train and the accuracy on the validation set remained at 10%. It is unknown why this occurred for some tests and why this failed to occur for any runs with batch normalization.
 
 When batch normalization was included in the model, the results from different activation functions become a lot more comparable. No activation function appears to outperform the mean, but the ELU function performs slightly lower than average on the final validation epoch with an mean accuracy of 0.59 (+- 0.010)
+
+![STL10 Time vs. Activation](/resources/STL10_Time_vs_Activation.png)
+![STL10 Loss](/resources/STL10_Loss.png)
+
 
 There were no significant differences in the total time required to train models for 30 epochs due to activation functions. However, as can be seen in the boxplot above, runs with batch normalization were slower on average than runs without batch normalization.
 
@@ -56,6 +62,9 @@ They follow the settings of:
 
 Learning rate = [1e-2, 1e-3, 1e-4, 1e-5]
 
+![Twitter Training Loss 1](/resources/Twitter_Training_Loss1.png)
+![Twitter Training Error 1](/resources/Twitter_Training_Error1.png)
+
 [Classification error (best)]
 
 relu 	 16.765%
@@ -69,6 +78,9 @@ silu 	 17.030%
 mish 	 17.394%
 
 gelu 	 16.555%
+
+![Twitter Training Loss 2](/resources/Twitter_Training_Loss2.png)
+![Twitter Training Error 2](/resources/Twitter_Training_Error2.png)
 
 [Classification error (best)]
 
@@ -91,6 +103,9 @@ Due to the high learning rate, all methods converage relatively fast and are sat
 
 We concluded that for a fast learning rate like 1e-3, the model can only retain sub-optimal results and Elu is the most sensitive one to high learning rate.
 
+![Twitter Training Loss 3](/resources/Twitter_Training_Loss3.png)
+![Twitter Training Error 3](/resources/Twitter_Training_Error3.png)
+
 [Classification error (best)]
 
 relu 	 12.150%
@@ -104,6 +119,10 @@ silu 	 13.255%
 mish 	 12.933%
 
 gelu 	 12.458%
+
+
+![Twitter Training Loss 4](/resources/Twitter_Training_Loss4.png)
+![Twitter Training Error 4](/resources/Twitter_Training_Error4.png)
 
 [Classification error (best)]
 
@@ -119,6 +138,7 @@ mish 	 16.443%
 
 gelu 	 16.695%
 
+![Twitter Accuracy](/resources/Twitter_Accuracy.png)
 
 In this section, we compare the training and inference time for XX / XX samples, repectively.
 
@@ -146,3 +166,7 @@ Avg. inference time per samples for silu ms is 4.8332 μs
 Avg. inference time per samples for mish ms is 10.7620 μs
 
 Avg. inference time per samples for gelu ms is 5.5138 μs
+
+
+![Twitter Training Time](/resources/Twitter_Training_Time.png)
+![Twitter Inference Time](/resources/Twitter_Inference_Time.png)
